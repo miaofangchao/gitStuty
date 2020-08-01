@@ -1,0 +1,12 @@
+初始化一个Git仓库，使用git init命令。
+添加文件到Git仓库，分两步：
+    1、使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+    2、使用命令git commit -m <message>，完成。
+git status  查看状态。
+git diff    修改文件后，使用此命令查看改动情况。修改完毕再次执行 git add ; git commit 完成提交保存
+git log     显示从最近到最远的提交日志；
+            git log --pretty=oneline  加上 --pretty=oneline 参数：在一行显示
+git reset   回退版本。
+            git reset --hard HEAD^  参数： HEAD 代表当前版本；HEAD^ 表示上一个版本，HEAD^^ ...;或者用 HEAD~100 表示往上100个版本
+            git reset --hard fe49d76   hard后面直接跟版本号，前几位即可，跳转到对应的版本。                            
+git reflog  记录你的每一次命令。用于回退版本后又想转回新版本，但是不知道版本id。
