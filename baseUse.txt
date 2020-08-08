@@ -14,5 +14,6 @@ git reflog  记录你的每一次命令。用于回退版本后又想转回新�
 版本库（Repository）：工作区里面的隐藏目录 .git 是版本库。版本库中有 暂存区 和 分支（master）；指针HEAD指向master
             暂存区（stage）：git add 把文件提交到暂存区
             分支（master）：git commit 把暂存区的内容提交到分支。
-            
-            
+管理修改：Git跟踪并管理的是修改，而非文件。文件修改后，add到暂存区，commit提交的是暂存区的修改。add后，再次修改需要再次add。
+git checkout -- fileName  撤销文件的修改：把选中的文件在工作区的修改全部撤销，回到最近一次的add 或者commit时的状态。
+git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
