@@ -10,3 +10,4 @@ git reset   回退版本。
             git reset --hard HEAD^  参数： HEAD 代表当前版本；HEAD^ 表示上一个版本，HEAD^^ ...;或者用 HEAD~100 表示往上100个版本
             git reset --hard fe49d76   hard后面直接跟版本号，前几位即可，跳转到对应的版本。                            
 git reflog  记录你的每一次命令。用于回退版本后又想转回新版本，但是不知道版本id。
+增加的
