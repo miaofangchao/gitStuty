@@ -16,4 +16,6 @@ git reflog  记录你的每一次命令。用于回退版本后又想转回新�
             分支（master）：git commit 把暂存区的内容提交到分支。
 管理修改：Git跟踪并管理的是修改，而非文件。文件修改后，add到暂存区，commit提交的是暂存区的修改。add后，再次修改需要再次add。
 git checkout -- fileName  撤销文件的修改：把选中的文件在工作区的修改全部撤销，回到最近一次的add 或者commit时的状态。
+                                        用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
 git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
+删除文件：直接在目录删除文件。然后 git add fileName 或者 git rm fileName 添加暂存区，git commit 提交修改。未提交之前，可以checkout撤销还原。
