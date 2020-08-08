@@ -24,5 +24,7 @@ git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
     创建远程仓库：打开Git Bash，创建SSH Key：$ ssh-keygen -t rsa -C "邮箱地址"
         在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
         推送现有仓库：
-            git remote add origin https://github.com/miaofangchao/gitStuty.git
-            git push -u origin master
+            远程库的名字就是origin，这是Git默认的叫法:
+                git remote add origin https://github.com/miaofangchao/gitStuty.git
+            本地库的所有内容推送到远程库上：用git push命令，实际上是把当前分支master推送到远程,第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+                git push -u origin master
