@@ -19,3 +19,10 @@ git checkout -- fileName  撤销文件的修改：把选中的文件在工作区
                                         用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
 git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
 删除文件：直接在目录删除文件。然后 git add fileName 或者 git rm fileName 添加暂存区，git commit 提交修改。未提交之前，可以checkout撤销还原。
+
+远程仓库：
+    创建远程仓库：打开Git Bash，创建SSH Key：$ ssh-keygen -t rsa -C "邮箱地址"
+        在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+        推送现有仓库：
+            git remote add origin https://github.com/miaofangchao/gitStuty.git
+            git push -u origin master
