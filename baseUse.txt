@@ -26,8 +26,18 @@ git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
         推送现有仓库：
             远程库的名字就是origin，这是Git默认的叫法:
                 git remote add origin https://github.com/miaofangchao/gitStuty.git
+                                      git@github.com:miaofangchao/gitStuty.git
+                                      Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
             本地库的所有内容推送到远程库上：用git push命令，实际上是把当前分支master推送到远程
             由于远程库是空的，第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
                 git push -u origin master
         从远程库克隆:
             git clone git地址
+分支管理：
+    master指向当前最新的提交，HEAD指向master，即当前主分支。可以创建新的分支，让HEAD指向新的分支，操作新分支更安全，之后再与主分支合并，删除新分支。
+    git branch <name>   创建分支
+    git checkout <name> 或者 git switch <name>    切换分支
+    git checkout -b <name> 或者 git switch -c <name>    创建 + 切换分支；checkout可以用于撤销，比较迷惑；switch是新版本指令。
+    git branch  查看分支
+    git merge <name>    合并某分支到当前分支
+    git branch -d <name>    删除分支
