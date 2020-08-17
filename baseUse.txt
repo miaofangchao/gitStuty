@@ -2,22 +2,23 @@
 添加文件到Git仓库，分两步：
     1、使用命令git add <file>，注意，可反复多次使用，添加多个文件；
     2、使用命令git commit -m <message>，完成。
-git status  查看状态。
-git diff    修改文件后，使用此命令查看改动情况。修改完毕再次执行 git add ; git commit 完成提交保存
-git log     显示从最近到最远的提交日志；
+    git status  查看状态。
+    git diff    修改文件后，使用此命令查看改动情况。修改完毕再次执行 git add ; git commit 完成提交保存
+    git log     显示从最近到最远的提交日志；
             git log --pretty=oneline  加上 --pretty=oneline 参数：在一行显示
-git reset   回退版本。
+    git reset   回退版本。
             git reset --hard HEAD^  参数： HEAD 代表当前版本；HEAD^ 表示上一个版本，HEAD^^ ...;或者用 HEAD~100 表示往上100个版本
             git reset --hard fe49d76   hard后面直接跟版本号，前几位即可，跳转到对应的版本。                            
-git reflog  记录你的每一次命令。用于回退版本后又想转回新版本，但是不知道版本id。
+    git reflog  记录你的每一次命令。用于回退版本后又想转回新版本，但是不知道版本id。
+
 工作区（Working Directory): 电脑里能看到的目录，就是git的工作求
 版本库（Repository）：工作区里面的隐藏目录 .git 是版本库。版本库中有 暂存区 和 分支（master）；指针HEAD指向master
             暂存区（stage）：git add 把文件提交到暂存区
             分支（master）：git commit 把暂存区的内容提交到分支。
 管理修改：Git跟踪并管理的是修改，而非文件。文件修改后，add到暂存区，commit提交的是暂存区的修改。add后，再次修改需要再次add。
-git checkout -- fileName  撤销文件的修改：把选中的文件在工作区的修改全部撤销，回到最近一次的add 或者commit时的状态。
+    git checkout -- fileName  撤销文件的修改：把选中的文件在工作区的修改全部撤销，回到最近一次的add 或者commit时的状态。
                                         用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
-git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
+    git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
 删除文件：直接在目录删除文件。然后 git add fileName 或者 git rm fileName 添加暂存区，git commit 提交修改。未提交之前，可以checkout撤销还原。
 
 远程仓库：
@@ -25,14 +26,17 @@ git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
         在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
         推送现有仓库：
             远程库的名字就是origin，这是Git默认的叫法:
-                git remote add origin https://github.com/miaofangchao/gitStuty.git
-                                      git@github.com:miaofangchao/gitStuty.git
-                                      Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
-            本地库的所有内容推送到远程库上：用git push命令，实际上是把当前分支master推送到远程
-            由于远程库是空的，第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-                git push -u origin master
-        从远程库克隆:
-            git clone git地址
+    git remote add origin https://github.com/miaofangchao/gitStuty.git
+                      git@github.com:miaofangchao/gitStuty.git
+                      Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+    git push    本地库的所有内容推送到远程库上：用git push命令，实际上是把当前分支master推送到远程
+    git push -u origin master
+            由于远程库是空的，第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令: 
+    git push origin master  简化命令,推送主分支。
+    git push origin dev     推送其他分支。
+    git clone git地址   从远程库克隆
+    git remote  查看远程库的信息
+    git remote -v   显示更详细的信息
 分支管理：
     master指向当前最新的提交，HEAD指向master，即当前主分支。可以创建新的分支，让HEAD指向新的分支，操作新分支更安全，之后再与主分支合并，删除新分支。
     git branch <name>   创建分支
@@ -41,3 +45,36 @@ git reset HEAD <file>     撤销暂存区的内容，回退到工作区。
     git branch  查看分支
     git merge <name>    合并某分支到当前分支
     git branch -d <name>    删除分支
+    git branch -D <name>    强行删除没有被合并过的分支。
+    git log --graph     查看分支合并图
+  分支管理策略：
+    Git默认用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+    git merge --no-ff -m "merge with no-ff" dev  : --no-ff参数，表示禁用Fast forward，然后就会用分支合合并历史。
+    在实际开发中，我们应该按照几个基本原则进行分支管理：
+        1、master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+        2、干活都在dev分支上，每个人都有自己的分支，时不时地往dev分支上合并就可以。
+  Bug分支:
+    git stash   保存当前工作进度：即工作只进行一半，未提交，但需要修复bug，可以先保存；然后在需要修复的分支上创建新的分支；bug修复后再合并、删除临时分支。
+    git stash list      查看保存的工作进度。
+    git stash apply     恢复储存的进度，但是stash内容并不删除，需要手动 git stash drop 删除
+    git stash pop       恢复并删除stash
+    git cherry-pick <commit>  把修复的bug合并到别的分支。在别的分支运行此命令。避免重复劳动，提交修复bug。
+  多人协作的工作模式通常是这样：
+    1、首先，可以试图用git push origin <branch-name>推送自己的修改；
+    2、如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+    3、如果合并有冲突，则解决冲突，并在本地提交；
+    4、没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+    5、如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+  git rebase  可以把本地未push的分叉提交历史整理成直线；目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+标签管理：标签也是版本库的一个快照：如版本号是 v1.2
+  注意：标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。
+  git tag <name>        打一个新标签，默认标签是打在最新提交的commit上的，即 HEAD。
+  git tag v0.9 f52c633  给之前的commit打标签，加上id号即可
+  git tag               查看标签，注意：标签不是按时间顺序列出，而是按字母排序的。
+  git show <tagname>    查看标签信息：
+  git tag -a v0.1 -m "version 0.1 released" 1094adb
+                        创建带有说明的标签，用-a指定标签名，-m指定说明文字
+  git tag -d v0.1       删除标签；创建的标签都只存储在本地，不会自动推送到远程。
+  git push origin <tagname>   推送某个标签到远程
+  git push origin --tags      推送全部尚未推送到远程的本地标签
+  git push origin :refs/tags/v0.9   删除远程标签；先删除本地标签。
